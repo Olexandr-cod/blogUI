@@ -12,6 +12,8 @@ import DialogsScreen from "../screens/DialogsScreen"
 import FriendScreen from "../screens/FriendScreen"
 import FilmScreen from "../screens/FilmScreen";
 import MusicScreen from "../screens/MusicScreen";
+import PostFormScreen from "../screens/PostFormScreen"
+import FetchPostScreen from "../screens/FetchPostScreen" 
 
 
 
@@ -26,6 +28,9 @@ const MusicStack = createStackNavigator();
 const FilmStack = createStackNavigator();
 
 const FriendStack = createStackNavigator();
+
+const PostFormStack = createStackNavigator();
+const FetchPostStack = createStackNavigator();
 
 
 
@@ -79,11 +84,26 @@ const FilmStackScreen = () => {
     </FilmStack.Navigator>
   )
 }
+const PostFormStackScreen = () => {
+  return(
+    <PostFormStack.Navigator>
+      <PostFormStack.Screen name="Post Form" component={PostFormScreen} />
+    </PostFormStack.Navigator>
+  )
+}
+const FetchPostStackScreen = () => {
+  return(
+    <FetchPostStack.Navigator>
+      <FetchPostStack.Screen name="Fetch Post" component={FetchPostScreen} />
+    </FetchPostStack.Navigator>
+  )
+}
 
 
 
 const Tab = createBottomTabNavigator();
 const AllTab = createBottomTabNavigator();
+const PostTab = createBottomTabNavigator();
 
 
 const TabNavigator =() => {
@@ -101,6 +121,14 @@ const AllTabNavigator =() => {
         <AllTab.Screen name="Friend" component={FriendStackScreen}  />
         <AllTab.Screen name="Search" component={SearchStackScreen} />
       </AllTab.Navigator>
+  )
+}
+const PostTabNavigator =() => {
+  return(
+      <PostTab.Navigator initialRouteName="PostForm" tabBarOptions={{activeTintColor: "gold", inactiveTintColor: "grey", labelStyle:{fontSize: 18}}} >
+        <PostTab.Screen name="PostForm" component={PostFormStackScreen}  />
+        <PostTab.Screen name="FetchForm" component={FetchPostStackScreen} />
+      </PostTab.Navigator>
   )
 }
 
@@ -127,7 +155,9 @@ const MenuDrawerContent = ({navigation}) => {
         <TouchableOpacity style={{marginTop: 20, marginLeft: 20}} onPress={() => navigation.navigate("Music") }>
           <Text style={{color: "blue", fontSize: 25}}>Music</Text>
         </TouchableOpacity>
-        
+        <TouchableOpacity style={{marginTop: 20, marginLeft: 20}} onPress={() => navigation.navigate("Posts") }>
+          <Text style={{color: "blue", fontSize: 25}}>Posts</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   ) 
@@ -143,6 +173,7 @@ export const AppNavigation = () => {
         <Drawer.Screen name="Dialogs" component={DialodStackScreens}  />
         <Drawer.Screen name="Music" component={MusicStackScreens} />
         <Drawer.Screen name="Films" component={FilmStackScreen} />
+        <Drawer.Screen name="Posts" component={PostTabNavigator} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
